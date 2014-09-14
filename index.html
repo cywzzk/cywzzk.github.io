@@ -1,85 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+    <meta charset="UTF-8">
     <title></title>
 
-    <style type="text/css">
 
-        html{height:100%}
+    <script>
 
-        body{height:100%; margin:0px; padding: 0px;}
 
-        #cywmap{height:100%}
+        function readThis() {
 
-    </style>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PrhddRKtxUFQztqaChfgb9Ym"> </script>
- //   <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
-  //  <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+            var tempStr = "str";
+            var filePath = "D:\\sb.xls";
+            var oXL = new ActiveXObject("Excel.application");
+            var oWB = oXL.Workbooks.open(filePath);
+            oWB.worksheets(1).select();
+            var oSheet = oWB.ActiveSheet;
+            try{
+                for(var i=1;i<46;i++){
+                    if(oSheet.Cells(i,2).value =="null" || oSheet.Cells(i,3).value =="null" )
+                        break;
+                    var a = oSheet.Cells(i,2).value.toString()=="undefined"?"":oSheet.Cells(i,2).value;
+
+                    tempStr+=(" "+oSheet.Cells(i,2).value +"\n");
+                    alert(tempStr);
+                }
+            }
+            catch(e){
+//alert(e);
+                //    document.all.txtArea.value = tempStr;
+            }
+            document.all.txtArea.value = tempStr; oXL.Quit();
+            CollectGarbage();
+        }
+    </script>
 </head>
+
 <body>
 
-<div id = "cywmap"></div>
 
-<script type="text/javascript">
-
-    var map = new BMap.Map("cywmap");          // 创建地图实例
-    var point = new BMap.Point(121.82, 31.497);  // 创建点坐标
-    map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
-    map.enableScrollWheelZoom();
-    map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
-    var customLayer;
-    function addCustomLayer( keyword ) {
-        if (customLayer) {
-            map.removeTileLayer(customLayer);
-        }
-        customLayer=new BMap.CustomLayer({
-            geotableId: 72200,
-            q: '', //检索关键字
-            tags: '', //空格分隔的多字符串
-            filter: '' //过滤条件,参考http://developer.baidu.com/map/lbs-geosearch.htm#.search.nearby
-        });
-        map.addTileLayer(customLayer);
-        customLayer.addEventListener('hotspotclick',callback);
-    }
-    addCustomLayer();
-    function callback(e)//单击热点图层
-    {
-        var customPoi = e.customPoi;//poi的默认字段
-        var contentPoi=e.content;//poi的自定义字段
-        var content = '<p>busi：' + contentPoi.cyw_busi +'&emsp;&emsp;&emsp;type:'+contentPoi.cyw_type+
-         '<br/>pd_max:'+ contentPoi.cyw_pd_max + '&emsp;&emsp;&emsp;qd_max:'+ contentPoi.cyw_qd_max +
-         '<br/>gs:'+ contentPoi.cyw_gs + '&emsp;&emsp;&emsp;bs:'+ contentPoi.cyw_bs +
-        '<br/>area:'+ contentPoi.cyw_area + '&emsp;&emsp;&emsp;vm:'+ contentPoi.cyw_vm +
-        '<br/>va:'+ contentPoi.cyw_va +'&emsp;&emsp;&emsp;basekv:'+ contentPoi.cyw_basekv +
-        '<br/>zone:'+ contentPoi.cyw_zone + '&emsp;&emsp;&emsp;cap(mva):'+ contentPoi.cyw_cap +
-        '<br/>voltage:'+ contentPoi.cyw_voltage +'&emsp;&emsp;&emsp;father:'+ contentPoi.cyw_father +
-        '<br/>kind:'+ contentPoi.cyw_kind +'&emsp;&emsp;&emsp;carbon:'+ contentPoi.cyw_carbon +'</p>';
-        var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
-            title: customPoi.title, //标题
-            width: 300, //宽度
-            height: 80, //高度
-            panel : "panel", //检索结果面板
-            enableAutoPan : true, //自动平移
-            enableSendToPhone:false, //是否显示发送到手机按钮
-            searchTypes :[]
-           //     BMAPLIB_TAB_SEARCH,   //周边检索
-           //     BMAPLIB_TAB_TO_HERE,  //到这里去
-           //     BMAPLIB_TAB_FROM_HERE //从这里出发
-           // ]
-        });
-        var npoint = new BMap.Point(customPoi.point.lng, customPoi.point.lat);
-        searchInfoWindow.open(npoint);
-    }
-
-    //创建信息窗口
-
-
-</script>
-
+<input type="button" onclick="readThis();" value="读取"><br>
+<textarea id="txtArea" cols=50 rows=10></textarea>
 
 </body>
 </html>
