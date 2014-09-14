@@ -174,14 +174,16 @@
     map.enableScrollWheelZoom();
     //创建小狐狸
     makepointdian();
+    var myIcon = new BMap.Icon("http://cywzzk.github.io/power.gif", new BMap.Size(100,100));
     for ( var i = 1; i <= num_pointdian; i ++) {
-        markers1[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]));  // 创建标注
+        markers1[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:myIcon});  // 创建标注
         map.addOverlay(markers1[i]);              // 将标注添加到地图中
         //创建信息窗口
-        var content = "1:"+arrays3[i] +"<br> 2:"+arrays4[i];
+        var content = "建设碳排放:"+arrays3[i] +"<br> 运行碳排放:"+arrays4[i];
         markers1[i].addEventListener("click",openInfo.bind(null,content));
     }
     makepolydian();
+
     for ( var i = 1; i <= num_polydian; i ++) {
         polys1[i] = new BMap.Polyline([
             new BMap.Point(arrays1[i], arrays2[i]),
@@ -189,15 +191,16 @@
         ], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});   //创建折线
         map.addOverlay(polys1[i]);              // 将标注添加到地图中
         //创建信息窗口
-        var content = "1:"+arrays5[i] +"<br> 2:"+arrays6[i];
+        var content = "建设碳排放:"+arrays5[i] +"<br> 运行碳排放:"+arrays6[i];
         polys1[i].addEventListener("click",openInfo1.bind(null,content));
     }
     makepointqi();
+    myIcon = new BMap.Icon("http://cywzzk.github.io/oil.gif", new BMap.Size(100,100));
     for ( var i = 1; i <= num_pointqi; i ++) {
-        markers2[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]));  // 创建标注
+        markers2[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:myIcon});  // 创建标注
         map.addOverlay(markers2[i]);              // 将标注添加到地图中
         //创建信息窗口
-        var content = "1:"+arrays3[i] +"<br> 2:"+arrays4[i];
+        var content = "建设碳排放:"+arrays3[i] +"<br> 运行碳排放:"+arrays4[i];
         markers2[i].addEventListener("click",openInfo.bind(null,content));
     }
     makepolyqi();
@@ -208,11 +211,11 @@
         ], {strokeColor:"red", strokeWeight:6, strokeOpacity:0.5});   //创建折线
         map.addOverlay(polys2[i]);              // 将标注添加到地图中
         //创建信息窗口
-        var content = "1:"+arrays5[i] +"<br> 2:"+arrays6[i];
+        var content = "建设碳排放:"+arrays5[i] +"<br> 运行碳排放:"+arrays6[i];
         polys2[i].addEventListener("click",openInfo1.bind(null,content));
     }
     dinaorqi = 1;
-    for (var i = 1; i<= num_pointqi; i++)
+   for (var i = 1; i<= num_pointqi; i++)
         markers2[i].hide();
     for ( var  i = 1; i <= num_polyqi; i ++ )
         polys2[i].hide();
