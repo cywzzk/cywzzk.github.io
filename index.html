@@ -174,7 +174,7 @@
     map.enableScrollWheelZoom();
     //创建小狐狸
     makepointdian();
-    var myIcon = new BMap.Icon("https://cywzzk.github.io/power.gif", new BMap.Size(10,10));
+    var myIcon = new BMap.Icon("https://cywzzk.github.io/power.gif", new BMap.Size(20,21));
     for ( var i = 1; i <= num_pointdian; i ++) {
         markers1[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:myIcon});  // 创建标注
         map.addOverlay(markers1[i]);              // 将标注添加到地图中
@@ -195,7 +195,7 @@
         polys1[i].addEventListener("click",openInfo1.bind(null,content));
     }
     makepointqi();
-        myIcon = new BMap.Icon("https://cywzzk.github.io/oil.gif", new BMap.Size(30,30));
+        myIcon = new BMap.Icon("https://cywzzk.github.io/oil.gif", new BMap.Size(20,25));
     for ( var i = 1; i <= num_pointqi; i ++) {
         markers2[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:myIcon});  // 创建标注
         map.addOverlay(markers2[i]);              // 将标注添加到地图中
