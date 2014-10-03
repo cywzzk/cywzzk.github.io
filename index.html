@@ -181,15 +181,17 @@
         markers1[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:myIcon});  // 创建标注
         map.addOverlay(markers1[i]);              // 将标注添加到地图中
         //创建信息窗口
-        var content = " "+arrays3[i] +"/"+arrays4[i];
+        var content = " "+arrays3[i] +""+arrays4[i];
    //     markers1[i].addEventListener("click",openInfo.bind(null,content));
-        var label = new BMap.Label(content,{offset:new BMap.Size(-25,-15)});
+        var label = new BMap.Label(content,{offset:new BMap.Size(-20,-15)});
         label.setStyle({
-            color : "blue",
-            fontSize : "12px",
+            color : "green",
+            fontSize : "18px",
             height : "20px",
             lineHeight : "20px",
-            fontFamily:"微软雅黑"
+            fontFamily:"微软雅黑",
+            backgroundColor:"transparent",
+            borderColor:"transparent"
         });
         markers1[i].setLabel(label);
     }
@@ -205,13 +207,15 @@
         var content = ""+arrays5[i] +" / "+arrays6[i]+ " ";
         var pointl = new BMap.Point((arrays1[i]+arrays3[i])/2,(arrays2[i]+arrays4[i])/2)
        // polys1[i].addEventListener("click",openInfo1.bind(null,content));
-        dianlabels[i] = new BMap.Label(content,{position : pointl, offset : new BMap.Size(-25,0)});
+        dianlabels[i] = new BMap.Label(content,{position : pointl, offset : new BMap.Size(-35,-10)});
         dianlabels[i].setStyle({
             color : "red",
             fontSize : "12px",
             height : "20px",
             lineHeight : "20px",
-            fontFamily:"微软雅黑"
+            fontFamily:"微软雅黑",
+            backgroundColor:"transparent",
+            borderColor:"transparent"
         });
         map.addOverlay(dianlabels[i]);
         //polys1[i].setLabel(label);
