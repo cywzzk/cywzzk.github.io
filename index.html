@@ -181,7 +181,7 @@
         markers1[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:myIcon});  // 创建标注
         map.addOverlay(markers1[i]);              // 将标注添加到地图中
         //创建信息窗口
-        var content = " "+arrays3[i] +""+arrays4[i];
+        var content = " "+arrays3[i] +" / "+arrays4[i];
    //     markers1[i].addEventListener("click",openInfo.bind(null,content));
         var label = new BMap.Label(content,{offset:new BMap.Size(-20,-15)});
         label.setStyle({
