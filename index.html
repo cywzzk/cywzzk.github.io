@@ -24,6 +24,7 @@
         var arrays4 = new Array();
         var arrays5 = new Array();
         var arrays6 = new Array();
+        var icons = new Array();
         var num_pointdian;
         var num_pointqi;
         var num_polydian;
@@ -56,6 +57,7 @@
                     arrays2[i] = oSheet.Cells(i, 2).value;
                     arrays3[i] = oSheet.Cells(i, 3).value;
                     arrays4[i] = oSheet.Cells(i, 4).value;
+                    arrays5[i] = oSheet.Cells(i, 5).value;
                     num_pointdian = i;
                 }
             }
@@ -174,11 +176,13 @@
 
     map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别
     map.enableScrollWheelZoom();
-    //创建小狐狸
+
     makepointdian();
-    var myIcon = new BMap.Icon("https://cywzzk.github.io/power.gif", new BMap.Size(20,21));
+    icons[1] = new BMap.Icon("https://cywzzk.github.io/power.gif", new BMap.Size(20,21));
+    icons[2] = new BMap.Icon("https://cywzzk.github.io/power2.gif", new BMap.Size(20,21));
+    icons[3] = new BMap.Icon("https://cywzzk.github.io/power3.gif", new BMap.Size(20,21));
     for ( var i = 1; i <= num_pointdian; i ++) {
-        markers1[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:myIcon});  // 创建标注
+        markers1[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:icons[arrays5[i]]});  // 创建标注
         map.addOverlay(markers1[i]);              // 将标注添加到地图中
         //创建信息窗口
         var content = arrays3[i] +"/"+arrays4[i];
