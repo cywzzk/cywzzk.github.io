@@ -178,9 +178,9 @@
     map.enableScrollWheelZoom();
 
     makepointdian();
-    icons[1] = new BMap.Icon("https://cywzzk.github.io/power2.png", new BMap.Size(20,21));
-    icons[2] = new BMap.Icon("https://cywzzk.github.io/power.png", new BMap.Size(20,21));
-    icons[3] = new BMap.Icon("https://cywzzk.github.io/power3.png", new BMap.Size(20,21));
+    icons[1] = new BMap.Icon("https://cywzzk.github.io/power3.png", new BMap.Size(20,21));
+    icons[2] = new BMap.Icon("https://cywzzk.github.io/power2.png", new BMap.Size(20,21));
+    icons[3] = new BMap.Icon("https://cywzzk.github.io/power.png", new BMap.Size(20,21));
     for ( var i = 1; i <= num_pointdian; i ++) {
         markers1[i] = new BMap.Marker(new BMap.Point(arrays1[i], arrays2[i]),{icon:icons[arrays5[i]]});  // 创建标注
         map.addOverlay(markers1[i]);              // 将标注添加到地图中
