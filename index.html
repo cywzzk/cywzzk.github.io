@@ -8,13 +8,9 @@
     <title></title>
 
     <style type="text/css">
-
         html{height:100%}
-
         body{height:100%;margin:0px; padding:0px}
-
         #cywmap{height:570px;width:100%;}
-
         .sel_container{
             z-index:9999;
             font-size:12px;
@@ -36,6 +32,10 @@
         var arrays4 = new Array();
         var arrays5 = new Array();
         var arrays6 = new Array();
+        var powerpoint_arrays3 = new Array();
+        var powerpoint_arrays4 = new Array();
+        var powerpoly_arrays5 = new Array();
+        var powerpoly_arrays6 = new Array();
         var icons = new Array();
         var num_pointdian;
         var num_pointqi;
@@ -53,6 +53,16 @@
             // title : "信息窗口" , // 信息窗口标题
             enableMessage:false//设置允许信息窗发送短息
         };
+        rnd.today=new Date();
+        rnd.seed=rnd.today.getTime();
+        function rnd() {
+            rnd.seed = (rnd.seed*9301+49297) % 233280;
+            return rnd.seed/(233280.0);
+        };
+        function rand(number) {
+            return Math.ceil(rnd()*number);
+        };
+
         // var s = new Array();
         function makepointdian()
         {
@@ -70,6 +80,8 @@
                     arrays3[i] = oSheet.Cells(i, 3).value;
                     arrays4[i] = oSheet.Cells(i, 4).value;
                     arrays5[i] = oSheet.Cells(i, 5).value;
+                    powerpoint_arrays3[i] = arrays3[i];
+                    powerpoint_arrays4[i] = arrays4[i];
                     num_pointdian = i;
                 }
             }
@@ -96,6 +108,8 @@
                     arrays4[i] = oSheet.Cells(i, 4).value;
                     arrays5[i] = oSheet.Cells(i, 5).value;
                     arrays6[i] = oSheet.Cells(i, 6).value;
+                    powerpoly_arrays5[i] = arrays5[i];
+                    powerpoly_arrays6[i] = arrays6[i];
                     num_polydian = i;
                 }
             }
@@ -156,7 +170,6 @@
             CollectGarbage();
         }
         function openInfo(content,e){
-
             var p = e.target;
             var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
             var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
@@ -169,7 +182,30 @@
             var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
             map.openInfoWindow(infoWindow,point); //开启信息窗口
         }
-
+        function change(){
+            for ( var i = 1; i <= num_pointdian; i ++) {
+                var number = Math.round((rand(1000) / 3000 * powerpoint_arrays4[i] + arrays4[i])*10000)/10000;
+                var content = powerpoint_arrays3[i] + "/" + number;
+                var label = markers1[i].getLabel();
+                ;
+                label.setStyle({
+                    color: "green",
+                    fontSize: "10px",
+                    height: "10px",
+                    lineHeight: "10px",
+                    fontFamily: "微软雅黑",
+                    backgroundColor: "transparent",
+                    borderColor: "transparent"
+                });
+                label.setContent(content);
+            }
+            for ( var i = 1; i <= num_polydian; i ++) {
+                var number1= Math.round(((Math.random() - Math.random())/3 * powerpoly_arrays5[i] + powerpoly_arrays5[i])*10000)/10000;
+                var number2= Math.round(((Math.random() - Math.random())/3 * powerpoly_arrays6[i] + powerpoly_arrays6[i])*10000)/10000;
+                var content = ""+number1 +" / "+ number2 + " ";
+                dianlabels[i].setContent(content);
+            }
+        }
     </script>
 </head>
 <body>
@@ -180,22 +216,20 @@
     <p><img src="https://cywzzk.github.io/power3.png" />：变电站<br>
         <img src="https://cywzzk.github.io/power2.png" />：风电厂<br>
         <img src="https://cywzzk.github.io/power.png" />：燃气电厂
-        </p>
+    </p>
 </div>
 <div id="r-result">
     <input type="button" onclick="showdian()" value="电气" />
     <input type="button" onclick="showqi()" value="油气" />
+    <input type="button" onclick="change()" value="下一日" />
+    <input type="button" onclick="change()" value="上一日" />
 </div>
 
 <script type="text/javascript">
-
     var map = new BMap.Map("cywmap");          // 创建地图实例
-
     var point = new BMap.Point(121.59,31.6);  // 创建点坐标
-
     map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别
     map.enableScrollWheelZoom();
-
     makepointdian();
     icons[1] = new BMap.Icon("https://cywzzk.github.io/power3.png", new BMap.Size(20,21));
     icons[2] = new BMap.Icon("https://cywzzk.github.io/power2.png", new BMap.Size(20,21));
@@ -205,7 +239,7 @@
         map.addOverlay(markers1[i]);              // 将标注添加到地图中
         //创建信息窗口
         var content = arrays3[i] +"/"+arrays4[i];
-   //     markers1[i].addEventListener("click",openInfo.bind(null,content));
+        //     markers1[i].addEventListener("click",openInfo.bind(null,content));
         var label = new BMap.Label(content,{offset:new BMap.Size(-15,-15)});
         label.setStyle({
             color : "green",
@@ -219,7 +253,6 @@
         markers1[i].setLabel(label);
     }
     makepolydian();
-
     for ( var i = 1; i <= num_polydian; i ++) {
         polys1[i] = new BMap.Polyline([
             new BMap.Point(arrays1[i], arrays2[i]),
@@ -229,7 +262,7 @@
         //创建信息窗口
         var content = ""+arrays5[i] +" / "+arrays6[i]+ " ";
         var pointl = new BMap.Point((arrays1[i]+arrays3[i])/2,(arrays2[i]+arrays4[i])/2)
-       // polys1[i].addEventListener("click",openInfo1.bind(null,content));
+        // polys1[i].addEventListener("click",openInfo1.bind(null,content));
         dianlabels[i] = new BMap.Label(content,{position : pointl, offset : new BMap.Size(-35,-10)});
         dianlabels[i].setStyle({
             color : "red",
@@ -264,15 +297,15 @@
         polys2[i].addEventListener("click",openInfo1.bind(null,content));
     }
     dinaorqi = 1;
-   // map.setViewport(markers1);
-   for (var i = 1; i<= num_pointqi; i++)
+    // map.setViewport(markers1);
+    for (var i = 1; i<= num_pointqi; i++)
         markers2[i].hide();
     for ( var  i = 1; i <= num_polyqi; i ++ )
         polys2[i].hide();
     function showqi()
     {
         // if ( dianorqi == 1){
-       // map.setViewport(markers2);
+        // map.setViewport(markers2);
         for (var i = 1; i<= num_pointdian; i++)
             markers1[i].hide();
         for ( var  i = 1; i <= num_polydian; i ++ )
@@ -289,7 +322,7 @@
     function showdian()
     {
         //   if (dianorqi == 2) {
-      //  map.setViewport(markers1);
+        //  map.setViewport(markers1);
         for (var i = 1; i <= num_pointdian; i++)
             markers1[i].show();
         for (var i = 1; i <= num_polydian; i++)
