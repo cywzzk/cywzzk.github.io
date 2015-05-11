@@ -184,7 +184,7 @@
         }
         function change(){
             for ( var i = 1; i <= num_pointdian; i ++) {
-                var number = Math.round((rand(1000) / 3000 * powerpoint_arrays4[i] + arrays4[i])*10000)/10000;
+                var number = Math.round(((Math.random() - Math.random())/3 * powerpoint_arrays4[i] + powerpoint_arrays4[i])*10000)/10000;
                 var content = powerpoint_arrays3[i] + "/" + number;
                 var label = markers1[i].getLabel();
                 ;
@@ -206,6 +206,30 @@
                 dianlabels[i].setContent(content);
             }
         }
+        function change1(){
+            for ( var i = 1; i <= num_pointdian; i ++) {
+                var number =powerpoint_arrays4[i];
+                var content = powerpoint_arrays3[i] + "/" + number;
+                var label = markers1[i].getLabel();
+                ;
+                label.setStyle({
+                    color: "green",
+                    fontSize: "10px",
+                    height: "10px",
+                    lineHeight: "10px",
+                    fontFamily: "微软雅黑",
+                    backgroundColor: "transparent",
+                    borderColor: "transparent"
+                });
+                label.setContent(content);
+            }
+            for ( var i = 1; i <= num_polydian; i ++) {
+                var number1=  powerpoly_arrays5[i] ;
+                var number2=  powerpoly_arrays6[i] ;
+                var content = ""+number1 +" / "+ number2 + " ";
+                dianlabels[i].setContent(content);
+            }
+        }
     </script>
 </head>
 <body>
@@ -221,8 +245,8 @@
 <div id="r-result">
     <input type="button" onclick="showdian()" value="电气" />
     <input type="button" onclick="showqi()" value="油气" />
+    <input type="button" onclick="change1()" value="上一日" />
     <input type="button" onclick="change()" value="下一日" />
-    <input type="button" onclick="change()" value="上一日" />
 </div>
 
 <script type="text/javascript">
